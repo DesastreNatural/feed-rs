@@ -31,7 +31,7 @@ use url::Url;
 ///     * item - comments (link to comments on the article), source (pointer to the channel, but our data model links items to a channel)
 ///   * RSS 1:
 ///     * channel - rdf:about attribute (pointer to feed), textinput (text box e.g. for search)
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 #[derive(Clone, Debug, PartialEq)]
 pub struct Feed {
     /// Type of this feed (e.g. RSS2, Atom etc)
@@ -220,7 +220,7 @@ impl Feed {
 }
 
 /// Type of a feed (RSS, Atom etc)
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum FeedType {
     Atom,
@@ -231,7 +231,7 @@ pub enum FeedType {
 }
 
 /// An item within a feed
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 #[derive(Clone, Debug, PartialEq)]
 pub struct Entry {
     /// A unique identifier for this item with a feed. If not supplied it is initialised to a hash of the first link or a UUID if not available.
@@ -402,7 +402,7 @@ impl Entry {
 ///
 /// [Atom spec]: http://www.atomenabled.org/developers/syndication/#category
 /// [RSS 2 spec]: https://validator.w3.org/feed/docs/rss2.html#ltcategorygtSubelementOfLtitemgt
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Category {
     /// The category as a human readable string
@@ -443,7 +443,7 @@ impl Category {
 ///
 /// [Atom spec]: http://www.atomenabled.org/developers/syndication/#contentElement
 /// [RSS 2.0]: https://validator.w3.org/feed/docs/rss2.html#ltenclosuregtSubelementOfLtitemgt
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Content {
     /// Atom
@@ -500,7 +500,7 @@ impl Content {
 /// Information on the tools used to generate the feed
 ///
 /// Atom: Identifies the software used to generate the feed, for debugging and other purposes.
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Generator {
     /// Atom: Additional data
@@ -540,7 +540,7 @@ impl Generator {
 /// [Atom spec]:  http://www.atomenabled.org/developers/syndication/#optionalFeedElements
 /// [RSS 2 spec]: https://validator.w3.org/feed/docs/rss2.html#ltimagegtSubelementOfLtchannelgt
 /// [RSS 1 spec]: https://validator.w3.org/feed/docs/rss1.html#s5.4
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Image {
     /// Link to the image
@@ -605,7 +605,7 @@ impl Image {
 ///
 /// [Atom spec]: http://www.atomenabled.org/developers/syndication/#link
 #[derive(Clone, Debug, Eq, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 pub struct Link {
     /// Link to additional content
     /// * Atom: The URI of the referenced resource (typically a Web page).
@@ -674,7 +674,7 @@ impl Link {
 
 /// The top-level representation of a media object
 /// i.e. combines "media:*" elements from the RSS Media spec such as those under a media:group
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct MediaObject {
     /// Title of the object (from the media:title element)
@@ -746,7 +746,7 @@ impl MediaObject {
 }
 
 /// Represents a "media:community" item from the RSS Media spec
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 #[derive(Clone, Debug, PartialEq)]
 pub struct MediaCommunity {
     /// Star rating
@@ -791,7 +791,7 @@ impl MediaCommunity {
 }
 
 /// Represents a "media:content" item from the RSS Media spec
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct MediaContent {
     /// The direct URL
@@ -857,7 +857,7 @@ impl MediaContent {
 }
 
 /// Represents a "media:credit" item from the RSS Media spec
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct MediaCredit {
     /// The entity being credited
@@ -871,7 +871,7 @@ impl MediaCredit {
 }
 
 /// Rating of the feed, item or media within the content
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct MediaRating {
     // The scheme (defaults to "simple" per the spec)
@@ -892,7 +892,7 @@ impl MediaRating {
 }
 
 /// Represents a "media:text" item from the RSS Media spec
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct MediaText {
     /// The text
@@ -914,7 +914,7 @@ impl MediaText {
 }
 
 /// Represents a "media:thumbnail" item from the RSS Media spec
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct MediaThumbnail {
     /// The thumbnail image
@@ -932,7 +932,7 @@ impl MediaThumbnail {
 /// Represents an author, contributor etc.
 ///
 /// [Atom spec]: http://www.atomenabled.org/developers/syndication/#person
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Person {
     /// Atom: human-readable name for the person.
@@ -969,7 +969,7 @@ impl Person {
 }
 
 /// Textual content, or link to the content, for a given entry.
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Text {
     pub content_type: Mime,

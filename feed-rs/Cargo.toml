@@ -17,9 +17,9 @@ categories = ["parser-implementations"]
 readme = "README.md"
 
 [dependencies]
-chrono = { version = "0.4.31", default-features = false }
+chrono = { version = "0.4.31", features = ["serde"], default-features = false }
 lazy_static = "1.4.0"
-mime = "0.3.17"
+mime = {"0.3.17", features = ["serde"]}
 quick-xml = { version = "0.31.0", features = ["encoding"] }
 regex = "1.10.2"
 serde = { version = "1.0.195", features = ["derive"] }
