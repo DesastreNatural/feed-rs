@@ -23,10 +23,8 @@
 
 #[macro_use]
 extern crate lazy_static;
-#[cfg(feature = "serde")]
 #[macro_use]
 extern crate serde;
-#[cfg(feature = "serde")]
 
 mod util;
 mod xml;
