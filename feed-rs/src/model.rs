@@ -454,7 +454,7 @@ pub struct Content {
     /// Type of content
     /// * Atom: The type attribute is either text, html, xhtml, in which case the content element is defined identically to other text constructs.
     /// * RSS 2: Type says what its type is, a standard MIME type
-    pub content_type: Mime,
+    pub content_type: String,
     /// RSS 2.0: Length of the content in bytes
     pub length: Option<u64>,
     /// Source of the content
@@ -467,7 +467,7 @@ impl Default for Content {
     fn default() -> Content {
         Content {
             body: None,
-            content_type: mime::TEXT_PLAIN,
+            content_type: mime::TEXT_PLAIN.to_string(),
             length: None,
             src: None,
         }
@@ -482,7 +482,7 @@ impl Content {
     }
 
     pub fn content_type(mut self, content_type: &str) -> Self {
-        self.content_type = content_type.parse::<Mime>().unwrap();
+        self.content_type = content_type.parse::<Mime>().unwrap().to_string();
         self
     }
 
@@ -797,7 +797,7 @@ pub struct MediaContent {
     /// The direct URL
     pub url: Option<Url>,
     /// Standard MIME type
-    pub content_type: Option<Mime>,
+    pub content_type: Option<String>,
     /// Height and width
     pub height: Option<u32>,
     pub width: Option<u32>,
@@ -812,7 +812,7 @@ pub struct MediaContent {
 #[cfg(test)]
 impl MediaContent {
     pub fn content_type(mut self, content_type: &str) -> Self {
-        self.content_type = Some(content_type.parse::<Mime>().unwrap());
+        self.content_type = Some(content_type.parse::<Mime>().unwrap().to_string());
         self
     }
 
@@ -972,7 +972,7 @@ impl Person {
 #[derive(Serialize, Deserialize)]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Text {
-    pub content_type: Mime,
+    pub content_type: String,
     pub src: Option<String>,
     pub content: String,
 }
@@ -980,7 +980,7 @@ pub struct Text {
 impl Text {
     pub(crate) fn new(content: String) -> Text {
         Text {
-            content_type: mime::TEXT_PLAIN,
+            content_type: mime::TEXT_PLAIN.to_string(),
             src: None,
             content: content.trim().to_string(),
         }
@@ -988,7 +988,7 @@ impl Text {
 
     pub(crate) fn html(content: String) -> Text {
         Text {
-            content_type: mime::TEXT_HTML,
+            content_type: mime::TEXT_HTML.to_string(),
             src: None,
             content: content.trim().to_string(),
         }
@@ -998,7 +998,7 @@ impl Text {
 #[cfg(test)]
 impl Text {
     pub fn content_type(mut self, content_type: &str) -> Self {
-        self.content_type = content_type.parse::<Mime>().unwrap();
+        self.content_type = content_type.parse::<Mime>().unwrap().to_string();
         self
     }
 }

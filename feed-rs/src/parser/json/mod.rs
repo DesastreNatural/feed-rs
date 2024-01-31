@@ -104,7 +104,7 @@ fn handle_content(content: Option<String>, content_type: Mime) -> Option<Content
     content.map(|body| Content {
         length: Some(body.as_bytes().len() as u64),
         body: Some(body.trim().into()),
-        content_type,
+        content_type: "".to_string(),
         ..Default::default()
     })
 }

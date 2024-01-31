@@ -113,8 +113,6 @@ fn handle_media_content<R: BufRead>(element: Element<R>, media_obj: &mut MediaOb
         match attr.name.as_str() {
             "url" => content.url = util::parse_uri(&attr.value, element.xml_base.as_ref()),
 
-            "type" => if_ok_then_some(attr.value.parse::<Mime>(), |v| content.content_type = v),
-
             "width" => if_ok_then_some(attr.value.parse::<u32>(), |v| content.width = v),
             "height" => if_ok_then_some(attr.value.parse::<u32>(), |v| content.height = v),
 
@@ -204,7 +202,7 @@ fn handle_media_text<R: BufRead>(element: Element<R>) -> Option<MediaText> {
     element.child_as_text().map(|t| {
         // Parse out the actual text of this element
         let mut text = Text::new(t);
-        text.content_type = mime.map_or(mime::TEXT_PLAIN, |m| m);
+        text.content_type = mime.map_or(mime::TEXT_PLAIN.to_string(), |m| m.to_string());
         let mut media_text = MediaText::new(text);
 
         // Add the time boundaries if we found them
@@ -268,7 +266,7 @@ fn handle_text<R: BufRead>(element: Element<R>) -> ParseFeedResult<Option<Text>>
         .children_as_string()?
         .map(|content| {
             let mut text = Text::new(content);
-            text.content_type = mime;
+            text.content_type = mime.to_string();
             Some(text)
         })
         // Need the text for a text element

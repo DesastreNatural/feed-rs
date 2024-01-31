@@ -19,11 +19,11 @@ readme = "README.md"
 [dependencies]
 chrono = { version = "0.4.31", features = ["serde"], default-features = false }
 lazy_static = "1.4.0"
-mime = {"0.3.17", features = ["serde"]}
+mime = {version = "0.3.17"}
 quick-xml = { version = "0.31.0", features = ["encoding"] }
 regex = "1.10.2"
 serde = { version = "1.0.195", features = ["derive"] }
 serde_json = "1.0.111"
 siphasher = "1.0.0"
-url = "2.5.0"
+url = { version = "2.5.0", features = ["serde"] }
 uuid = { version = "1.6.1", features = ["v4"] }

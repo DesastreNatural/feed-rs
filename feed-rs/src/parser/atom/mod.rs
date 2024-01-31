@@ -116,7 +116,7 @@ fn handle_content<R: BufRead>(element: Element<R>) -> ParseFeedResult<Option<Con
                 .map(|body| {
                     let mut content = Content::default();
                     content.body = Some(body.content);
-                    content.content_type = mime::TEXT_XML;
+                    content.content_type = mime::TEXT_XML.to_string();
                     Some(content)
                 })
                 // The XML is required for an XML content element
@@ -132,7 +132,7 @@ fn handle_content<R: BufRead>(element: Element<R>) -> ParseFeedResult<Option<Con
                     .map(|body| {
                         let content = Content {
                             body: Some(body),
-                            content_type: mime,
+                            content_type: mime.to_string(),
                             ..Default::default()
                         };
                         Some(content)
@@ -299,7 +299,7 @@ pub(crate) fn handle_text<R: BufRead>(element: Element<R>) -> ParseFeedResult<Op
         .children_as_string()?
         .map(|content| {
             let mut text = Text::new(content);
-            text.content_type = mime;
+            text.content_type = mime.to_string();
             Some(text)
         })
         // Need the text for a text element
